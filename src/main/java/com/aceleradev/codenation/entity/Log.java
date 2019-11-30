@@ -3,6 +3,10 @@ package com.aceleradev.codenation.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+
+import com.aceleradev.codenation.entity.enums.Environment;
+import com.aceleradev.codenation.entity.enums.Level;
+
 import java.time.LocalDateTime;
 
 @Entity

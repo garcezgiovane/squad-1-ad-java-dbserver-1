@@ -1,8 +1,9 @@
 package com.aceleradev.codenation.repository;
 
-import com.aceleradev.codenation.entity.Environment;
-import com.aceleradev.codenation.entity.Level;
 import com.aceleradev.codenation.entity.Log;
+import com.aceleradev.codenation.entity.enums.Environment;
+import com.aceleradev.codenation.entity.enums.Level;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

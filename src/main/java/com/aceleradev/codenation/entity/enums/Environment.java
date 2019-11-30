@@ -1,4 +1,4 @@
-package com.aceleradev.codenation.entity;
+package com.aceleradev.codenation.entity.enums;
 
 public enum Environment {
     DEV, HOMOLOG, PROD

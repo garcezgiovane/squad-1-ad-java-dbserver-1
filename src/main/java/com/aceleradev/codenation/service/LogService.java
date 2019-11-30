@@ -1,8 +1,8 @@
 package com.aceleradev.codenation.service;
 
-import com.aceleradev.codenation.entity.Environment;
-import com.aceleradev.codenation.entity.Level;
 import com.aceleradev.codenation.entity.Log;
+import com.aceleradev.codenation.entity.enums.Environment;
+import com.aceleradev.codenation.entity.enums.Level;
 import com.aceleradev.codenation.repository.LogRepository;
 import org.springframework.stereotype.Service;
 

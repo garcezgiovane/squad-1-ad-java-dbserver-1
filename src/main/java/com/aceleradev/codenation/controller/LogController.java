@@ -1,7 +1,7 @@
 package com.aceleradev.codenation.controller;
 
-import com.aceleradev.codenation.entity.Environment;
-import com.aceleradev.codenation.entity.Level;
+import com.aceleradev.codenation.entity.enums.Environment;
+import com.aceleradev.codenation.entity.enums.Level;
 import com.aceleradev.codenation.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
