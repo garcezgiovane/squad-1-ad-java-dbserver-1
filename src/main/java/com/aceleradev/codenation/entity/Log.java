@@ -16,8 +16,8 @@ public class Log {
     private String title;
     private String description;
     private LocalDateTime eventDate;
-//    private Level level;
-//    private Environment environment;
+    private Level level;
+    private Environment environment;
     private String origin;
     private Long frequency;
 

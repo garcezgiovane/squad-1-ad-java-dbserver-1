@@ -1,5 +1,7 @@
 package com.aceleradev.codenation.service;
 
+import com.aceleradev.codenation.entity.Environment;
+import com.aceleradev.codenation.entity.Level;
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.repository.LogRepository;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,14 @@ public class LogService {
 
     public List<Log> findByEnvironment(Environment environment) {
         return logRepository.findByEnvironment(environment);
+    }
+
+    public List<Log> findByEnvironmentOrderByFrequency(Environment environment) {
+        return logRepository.findByEnvironmentOrderByFrequencyDesc(environment);
+    }
+
+    public List<Log> findByEnvironmentOrderByLevel(Environment environment) {
+        return logRepository.findByEnvironmentOrderByLevelDesc(environment);
     }
 
     public List<Log> findByEnvironmentAndLevel(Environment environment, Level level) {
