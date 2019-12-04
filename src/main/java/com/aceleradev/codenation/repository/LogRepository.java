@@ -1,13 +1,12 @@
 package com.aceleradev.codenation.repository;
 
-import com.aceleradev.codenation.dto.LogDTO;
-import com.aceleradev.codenation.entity.Log;
-import com.aceleradev.codenation.entity.enums.Environment;
-import com.aceleradev.codenation.entity.enums.Level;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import com.aceleradev.codenation.entity.Log;
+import com.aceleradev.codenation.entity.enums.Environment;
+import com.aceleradev.codenation.entity.enums.Level;
 
 public interface LogRepository extends JpaRepository<Log, Long> {
     List<Log> findByEnvironment(Environment environment);
