@@ -40,8 +40,17 @@ public class LogController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws LogNotFoundException {
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
 		logService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Log log, @PathVariable("id") Long id) {
+		
+		log.setId(id);
+		logService.update(log);
+
 		return ResponseEntity.noContent().build();
 	}
 

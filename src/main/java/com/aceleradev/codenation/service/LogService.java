@@ -12,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -44,12 +45,15 @@ public class LogService {
 		return logRepository.findByEnvironment(logDTO.getEnvironment());
 	}
 
+	public Optional<Log> findById(Long id) {
+		return logRepository.findById(id);
+	}
+
 	public Log save(Log log) {
-		log.setId(null);
 		return logRepository.save(log);
 	}
-	
-	public void delete(Long id) throws LogNotFoundException {
+
+	public void delete(Long id) {
 		try {
 			logRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
@@ -57,5 +61,16 @@ public class LogService {
 		}
 	}
 
+	public void update(Log log) {
+		try {
+			logRepository.findById(log.getId()).get();
+			logRepository.save(log);
+		} catch (NoSuchElementException e) {
+			throw new LogNotFoundException("Log ausente. Não pode ser atualizado.");
+		}
+	
+	
+		
+	}
 
 }
