@@ -6,7 +6,9 @@ import lombok.Data;
 
 @Data
 public class LogDTO {
-    private Environment environment;
+    
+	private String title;
+	private Environment environment;
     private Level level;
     private String frequency;
     private String description;

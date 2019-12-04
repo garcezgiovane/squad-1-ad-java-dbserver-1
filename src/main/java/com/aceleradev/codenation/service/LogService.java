@@ -15,29 +15,35 @@ import java.util.Optional;
 @Service
 public class LogService {
 
-    private LogRepository logRepository;
+	private LogRepository logRepository;
 
-    @Autowired
-    public LogService(LogRepository logRepository) {
-        this.logRepository = logRepository;
-    }
+	@Autowired
+	public LogService(LogRepository logRepository) {
+		this.logRepository = logRepository;
+	}
 
-    public List<Log> findLogs(LogDTO logDTO) {
-        if(Objects.nonNull(logDTO.getLevel())) {
-            return logRepository.findByEnvironmentAndLevel(logDTO.getEnvironment(), logDTO.getLevel());
-        }
-        if(Objects.nonNull(logDTO.getOrigin()) ) {
-            return logRepository.findByEnvironmentAndOrigin(logDTO.getEnvironment(), logDTO.getOrigin());
-        }
-        if(Objects.nonNull(logDTO.getDescription()) ) {
-            return logRepository.findByEnvironmentAndDescription(logDTO.getEnvironment(), logDTO.getDescription());
-        }
-        if(Objects.nonNull(logDTO.getOrder())) {
-            if(logDTO.getOrder().equals("frequency")) {
-                return logRepository.findByEnvironmentOrderByFrequencyDesc(logDTO.getEnvironment());
-            }
-            return logRepository.findByEnvironmentOrderByLevelDesc(logDTO.getEnvironment());
-        }
-        return logRepository.findByEnvironment(logDTO.getEnvironment());
-    }
+	public List<Log> findLogs(LogDTO logDTO) {
+		if (Objects.nonNull(logDTO.getLevel())) {
+			return logRepository.findByEnvironmentAndLevel(logDTO.getEnvironment(), logDTO.getLevel());
+		}
+		if (Objects.nonNull(logDTO.getOrigin())) {
+			return logRepository.findByEnvironmentAndOrigin(logDTO.getEnvironment(), logDTO.getOrigin());
+		}
+		if (Objects.nonNull(logDTO.getDescription())) {
+			return logRepository.findByEnvironmentAndDescription(logDTO.getEnvironment(), logDTO.getDescription());
+		}
+		if (Objects.nonNull(logDTO.getOrder())) {
+			if (logDTO.getOrder().equals("frequency")) {
+				return logRepository.findByEnvironmentOrderByFrequencyDesc(logDTO.getEnvironment());
+			}
+			return logRepository.findByEnvironmentOrderByLevelDesc(logDTO.getEnvironment());
+		}
+		return logRepository.findByEnvironment(logDTO.getEnvironment());
+	}
+
+	public Log save(Log log) {
+		log.setId(null);
+		return logRepository.save(log);
+	}
+
 }
