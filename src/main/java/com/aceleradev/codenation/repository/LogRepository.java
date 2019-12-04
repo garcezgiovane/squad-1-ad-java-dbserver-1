@@ -15,4 +15,5 @@ public interface LogRepository extends JpaRepository<Log, Long> {
     List<Log> findByEnvironmentAndLevel(Environment environment, Level level);
     List<Log> findByEnvironmentOrderByLevelDesc(Environment environment);
     List<Log> findByEnvironmentOrderByFrequencyDesc(Environment environment);
+	
 }

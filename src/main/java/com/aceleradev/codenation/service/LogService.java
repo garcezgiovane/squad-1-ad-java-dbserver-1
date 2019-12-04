@@ -5,7 +5,10 @@ import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.entity.enums.Environment;
 import com.aceleradev.codenation.entity.enums.Level;
 import com.aceleradev.codenation.repository.LogRepository;
+import com.aceleradev.codenation.service.exceptions.LogNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +48,14 @@ public class LogService {
 		log.setId(null);
 		return logRepository.save(log);
 	}
+	
+	public void delete(Long id) throws LogNotFoundException {
+		try {
+			logRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new LogNotFoundException("O Log não pode ser encontrado.");
+		}
+	}
+
 
 }
