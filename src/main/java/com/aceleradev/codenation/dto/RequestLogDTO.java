@@ -14,7 +14,7 @@ import lombok.Data;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
-public class LogResponseDTO {
+public class RequestLogDTO {
 	
 	private String title;
 	private String description;
@@ -26,9 +26,9 @@ public class LogResponseDTO {
 	private Long frequency;
 	private User user;
 
-	public static LogResponseDTO convertToDTO(Log log) {
-	    return new LogResponseDTO(log.getTitle(), log.getDescription(),
-	    		log.getEventDate(), log.getLevel(), log.getEnvironment(), log.getOrigin(), log.getLogStatus(), log.getFrequency(), log.getUser());
+	public Log convertToLog() {
+	    return new Log(null, title, description,eventDate,level,environment,origin,logStatus,frequency,user);
+		
 	}
 	
 }

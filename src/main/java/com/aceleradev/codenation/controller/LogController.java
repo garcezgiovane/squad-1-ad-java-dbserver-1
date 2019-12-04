@@ -1,6 +1,7 @@
 package com.aceleradev.codenation.controller;
 
 import com.aceleradev.codenation.dto.LogDTO;
+import com.aceleradev.codenation.dto.RequestLogDTO;
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.service.LogService;
 import com.aceleradev.codenation.service.exceptions.LogNotFoundException;
@@ -32,9 +33,10 @@ public class LogController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> save(@RequestBody Log log) {
-		Log novoLog = logService.save(log);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(novoLog.getId())
+	public ResponseEntity<Void> save(@RequestBody RequestLogDTO requestLogDTO) {
+		
+		Log log = logService.save(requestLogDTO.convertToLog());
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(log.getId())
 				.toUri();
 		return ResponseEntity.created(uri).build();
 	}
@@ -46,8 +48,8 @@ public class LogController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Log log, @PathVariable("id") Long id) {
-		
+	public ResponseEntity<Void> update(@RequestBody RequestLogDTO requestLogDTO, @PathVariable("id") Long id) {
+		Log log = requestLogDTO.convertToLog();
 		log.setId(id);
 		logService.update(log);
 
