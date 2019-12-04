@@ -1,15 +1,9 @@
-package com.aceleradev.codenation.entity;
+package com.aceleradev.codenation.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+import com.aceleradev.codenation.entity.Log;
+import com.aceleradev.codenation.entity.User;
 import com.aceleradev.codenation.entity.enums.Environment;
 import com.aceleradev.codenation.entity.enums.Level;
 import com.aceleradev.codenation.entity.enums.LogStatus;
@@ -18,15 +12,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Entity
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Data
-@AllArgsConstructor
-public class Log {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
+public class ResponseLogDTO {
+	
 	private String title;
 	private String description;
 	private LocalDateTime eventDate;
@@ -35,12 +24,11 @@ public class Log {
 	private String origin;
 	private LogStatus logStatus;
 	private Long frequency;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
 	private User user;
-	
-	public Log() {
-		
-	}
 
+	public static ResponseLogDTO convertToDTO(Log log) {
+	    return new ResponseLogDTO(log.getTitle(), log.getDescription(),
+	    		log.getEventDate(), log.getLevel(), log.getEnvironment(), log.getOrigin(), log.getLogStatus(), log.getFrequency(), log.getUser());
+	}
+	
 }
