@@ -48,7 +48,7 @@ jobs:
             - run:
                 name: Deploy Master to Heroku
                 command: |
-                  git push https://git.heroku.com/codenation-central-erros.git master
+                  git push https://git.heroku.com/codenation-central-erros.git
 
         workflows:
           version: 2
