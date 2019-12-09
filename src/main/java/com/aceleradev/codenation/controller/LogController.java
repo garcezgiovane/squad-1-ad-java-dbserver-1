@@ -34,26 +34,20 @@ public class LogController {
 
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody RequestLogDTO requestLogDTO) {
-		
-		Log log = logService.save(requestLogDTO.convertToLog());
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(log.getId())
-				.toUri();
-		return ResponseEntity.created(uri).build();
+
+		return logService.save(requestLogDTO);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-		logService.delete(id);
-		return ResponseEntity.noContent().build();
+
+		return logService.delete(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody RequestLogDTO requestLogDTO, @PathVariable("id") Long id) {
-		Log log = requestLogDTO.convertToLog();
-		log.setId(id);
-		logService.update(log);
-
-		return ResponseEntity.noContent().build();
+		
+		return logService.update(requestLogDTO, id);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.aceleradev.codenation.service;
 
 import com.aceleradev.codenation.dto.LogDTO;
+import com.aceleradev.codenation.dto.RequestLogDTO;
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.entity.enums.Environment;
 import com.aceleradev.codenation.entity.enums.Level;
@@ -9,8 +10,11 @@ import com.aceleradev.codenation.service.exceptions.LogNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -49,28 +53,35 @@ public class LogService {
 		return logRepository.findById(id);
 	}
 
-	public Log save(Log log) {
-		return logRepository.save(log);
+	public ResponseEntity<Void> save(RequestLogDTO requestLogDTO) {
+
+		Log log = requestLogDTO.convertToLog();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(log.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+
 	}
 
-	public void delete(Long id) {
+	public ResponseEntity<Void> delete(Long id) {
 		try {
+
 			logRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
 			throw new LogNotFoundException("O Log não pode ser encontrado.");
 		}
+		return ResponseEntity.noContent().build();
 	}
 
-	public void update(Log log) {
+	public ResponseEntity<Void> update(RequestLogDTO requestLogDTO, Long id) {
 		try {
+			Log log = requestLogDTO.convertToLog();
+			log.setId(id);
 			logRepository.findById(log.getId()).get();
 			logRepository.save(log);
 		} catch (NoSuchElementException e) {
 			throw new LogNotFoundException("Log ausente. Não pode ser atualizado.");
 		}
-	
-	
-		
+		return ResponseEntity.noContent().build();
+
 	}
 
 }
