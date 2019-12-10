@@ -56,6 +56,7 @@ public class LogService {
 	public ResponseEntity<Void> save(RequestLogDTO requestLogDTO) {
 
 		Log log = requestLogDTO.convertToLog();
+		logRepository.save(log);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(log.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 

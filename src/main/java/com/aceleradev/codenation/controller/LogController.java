@@ -1,19 +1,22 @@
 package com.aceleradev.codenation.controller;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.aceleradev.codenation.dto.LogDTO;
 import com.aceleradev.codenation.dto.RequestLogDTO;
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.service.LogService;
-import com.aceleradev.codenation.service.exceptions.LogNotFoundException;
-
-import java.net.URI;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("api/v1/logs")
@@ -32,6 +35,12 @@ public class LogController {
 		return ResponseEntity.ok(logService.findLogs(logDTO));
 	}
 
+	@GetMapping(value = "/{id}")
+	public Optional<Log> finById(@PathVariable("id") Long id) {
+
+		return logService.findById(id);
+	}
+
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody RequestLogDTO requestLogDTO) {
 
@@ -46,7 +55,7 @@ public class LogController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody RequestLogDTO requestLogDTO, @PathVariable("id") Long id) {
-		
+
 		return logService.update(requestLogDTO, id);
 	}
 
