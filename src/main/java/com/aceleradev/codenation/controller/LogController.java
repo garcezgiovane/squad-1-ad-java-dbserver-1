@@ -1,5 +1,6 @@
 package com.aceleradev.codenation.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,15 @@ public class LogController {
 		return ResponseEntity.ok(logService.findLogs(logDTO));
 	}
 
+	@GetMapping(value = "/")
+	public List<Log> findAll() {
+
+		return logService.findAll();
+	}
+
+	
 	@GetMapping(value = "/{id}")
-	public Optional<Log> finById(@PathVariable("id") Long id) {
+	public Optional<Log> findById(@PathVariable("id") Long id) {
 
 		return logService.findById(id);
 	}

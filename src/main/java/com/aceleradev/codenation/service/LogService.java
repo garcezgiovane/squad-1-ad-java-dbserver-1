@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -49,6 +50,11 @@ public class LogService {
 		return logRepository.findByEnvironment(logDTO.getEnvironment());
 	}
 
+	public List<Log> findAll(){
+		return logRepository.findAll();
+	}
+	
+	
 	public Optional<Log> findById(Long id) {
 		return logRepository.findById(id);
 	}
