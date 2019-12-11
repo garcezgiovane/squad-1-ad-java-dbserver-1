@@ -3,6 +3,8 @@ package com.aceleradev.codenation.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +41,7 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> save(@RequestBody UserDTO userDTO) {
+	public ResponseEntity<Void> save(@Valid @RequestBody UserDTO userDTO) {
 
 		return userService.save(userDTO);
 	}
@@ -51,7 +53,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody UserDTO userDTO, @PathVariable("id") Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody UserDTO userDTO, @PathVariable("id") Long id) {
 
 		return userService.update(userDTO, id);
 	}

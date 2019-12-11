@@ -2,6 +2,10 @@ package com.aceleradev.codenation.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.entity.User;
 import lombok.AccessLevel;
@@ -13,13 +17,12 @@ import lombok.Data;
 public class UserDTO {
 
 	private String fullName;
+	@NotNull
+	@Email(message = "Formato de email valido obrigatorio.")
 	private String email;
+	@NotNull
+	@Size(min = 8, max = 50)
 	private String password;
 	private List<Log> log;
-
-	public User convertToUser() {
-		return new User(null, fullName, email, password, log);
-
-	}
 
 }

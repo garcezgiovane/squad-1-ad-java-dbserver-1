@@ -1,13 +1,13 @@
 package com.aceleradev.codenation.service;
 
 import com.aceleradev.codenation.dto.LogDTO;
-import com.aceleradev.codenation.dto.RequestLogDTO;
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.entity.enums.Environment;
 import com.aceleradev.codenation.entity.enums.Level;
 import com.aceleradev.codenation.repository.LogRepository;
 import com.aceleradev.codenation.service.exceptions.LogNotFoundException;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
@@ -53,9 +53,10 @@ public class LogService {
 		return logRepository.findById(id);
 	}
 
-	public ResponseEntity<Void> save(RequestLogDTO requestLogDTO) {
+	public ResponseEntity<Void> save(LogDTO logDTO) {
 
-		Log log = requestLogDTO.convertToLog();
+		Log log = new Log();		
+		BeanUtils.copyProperties(logDTO, log);
 		logRepository.save(log);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(log.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -71,9 +72,10 @@ public class LogService {
 		return ResponseEntity.noContent().build();
 	}
 
-	public ResponseEntity<Void> update(RequestLogDTO requestLogDTO, Long id) {
+	public ResponseEntity<Void> update(LogDTO logDTO, Long id) {
 		try {
-			Log log = requestLogDTO.convertToLog();
+			Log log = new Log();
+			BeanUtils.copyProperties(logDTO, log);
 			log.setId(id);
 			logRepository.findById(log.getId()).get();
 			logRepository.save(log);

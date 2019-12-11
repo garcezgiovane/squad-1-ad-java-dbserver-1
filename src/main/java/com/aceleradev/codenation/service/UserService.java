@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,8 @@ public class UserService {
 
 	public ResponseEntity<Void> save(UserDTO userDTO) {
 
-		User user = userDTO.convertToUser();
+		User user = new User();
+		BeanUtils.copyProperties(userDTO, user);
 		userRepository.save(user);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -55,7 +57,8 @@ public class UserService {
 
 	public ResponseEntity<Void> update(UserDTO userDTO, Long id) {
 		try {
-			User user = userDTO.convertToUser();
+			User user = new User();
+			BeanUtils.copyProperties(userDTO, user);
 			user.setId(id);
 			userRepository.findById(user.getId()).get();
 			userRepository.save(user);

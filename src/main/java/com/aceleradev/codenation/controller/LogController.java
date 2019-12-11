@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aceleradev.codenation.dto.LogDTO;
-import com.aceleradev.codenation.dto.RequestLogDTO;
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.service.LogService;
 
@@ -42,9 +41,9 @@ public class LogController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> save(@RequestBody RequestLogDTO requestLogDTO) {
+	public ResponseEntity<Void> save(@RequestBody LogDTO logDTO) {
 
-		return logService.save(requestLogDTO);
+		return logService.save(logDTO);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -54,9 +53,9 @@ public class LogController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody RequestLogDTO requestLogDTO, @PathVariable("id") Long id) {
+	public ResponseEntity<Void> update(@RequestBody LogDTO logDTO, @PathVariable("id") Long id) {
 
-		return logService.update(requestLogDTO, id);
+		return logService.update(logDTO, id);
 	}
 
 }
