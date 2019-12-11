@@ -1,18 +1,11 @@
 package com.aceleradev.codenation.entity;
 
-import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import com.aceleradev.codenation.entity.enums.Environment;
-import com.aceleradev.codenation.entity.enums.Level;
-import com.aceleradev.codenation.entity.enums.LogStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -20,14 +13,18 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String fullName;
 	private String email;
 	private String password;
 	@OneToMany(mappedBy = "user")
 	private List<Log> log;
-	
+
+	public User() {
+		
+	}
 }

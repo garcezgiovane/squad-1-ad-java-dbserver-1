@@ -64,7 +64,6 @@ public class LogService {
 
 	public ResponseEntity<Void> delete(Long id) {
 		try {
-
 			logRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
 			throw new LogNotFoundException("O Log não pode ser encontrado.");
