@@ -3,6 +3,7 @@ package com.aceleradev.codenation.controller;
 import java.util.List;
 import java.util.Optional;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,37 +30,42 @@ public class LogController {
 		this.logService = logService;
 	}
 
+	@ApiOperation(value = "Returns a list of filtered logs")
 	@ResponseBody
-	@GetMapping
+	@GetMapping(produces="application/json")
 	public ResponseEntity<?> getLogs(LogDTO logDTO) {
 		return ResponseEntity.ok(logService.findLogs(logDTO));
 	}
 
+	@ApiOperation(value = "Returns a list of logs")
 	@GetMapping(value = "/")
 	public List<Log> findAll() {
 
 		return logService.findAll();
 	}
 
-	
-	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Return a log filtered by id")
+	@GetMapping(value = "/{id}", produces="application/json")
 	public Optional<Log> findById(@PathVariable("id") Long id) {
 
 		return logService.findById(id);
 	}
 
+	@ApiOperation(value = "Save a log")
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody LogDTO logDTO) {
 
 		return logService.save(logDTO);
 	}
 
+	@ApiOperation(value = "Delete a log by id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
 
 		return logService.delete(id);
 	}
 
+	@ApiOperation(value = "Update a log by id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody LogDTO logDTO, @PathVariable("id") Long id) {
 
