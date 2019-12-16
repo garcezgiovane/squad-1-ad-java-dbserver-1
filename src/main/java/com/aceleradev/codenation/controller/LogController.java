@@ -3,6 +3,7 @@ package com.aceleradev.codenation.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiOperation;
@@ -17,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aceleradev.codenation.dto.FindLogDTO;
 import com.aceleradev.codenation.dto.LogDTO;
-import com.aceleradev.codenation.dto.NewLogDTO;
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.service.LogService;
+import com.aceleradev.codenation.service.exceptions.UserAlreadyRegisteredException;
 
 @RestController
 @RequestMapping("api/v1/logs")
@@ -35,8 +37,8 @@ public class LogController {
 
 	@ApiOperation(value = "Returns a list of filtered logs")
 	@ResponseBody
-	@GetMapping(produces="application/json")
-	public ResponseEntity<?> getLogs(LogDTO logDTO) {
+	@GetMapping(produces = "application/json")
+	public ResponseEntity<?> getLogs(FindLogDTO logDTO) {
 		return ResponseEntity.ok(logService.findLogs(logDTO));
 	}
 
@@ -48,7 +50,7 @@ public class LogController {
 	}
 
 	@ApiOperation(value = "Return a log filtered by id")
-	@GetMapping(value = "/{id}", produces="application/json")
+	@GetMapping(value = "/{id}", produces = "application/json")
 	public Optional<Log> findById(@PathVariable("id") Long id) {
 
 		return logService.findById(id);
@@ -56,9 +58,9 @@ public class LogController {
 
 	@ApiOperation(value = "Save a log")
 	@PostMapping
-	public ResponseEntity<Void> save(@RequestBody @Valid NewLogDTO newLogDTO) {
-		
-		return logService.save(newLogDTO);
+	public ResponseEntity<Void> save(@RequestBody @Valid LogDTO logDTO) {
+
+		return logService.save(logDTO);
 	}
 
 	@ApiOperation(value = "Delete a log by id")
@@ -70,9 +72,10 @@ public class LogController {
 
 	@ApiOperation(value = "Update a log by id")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody LogDTO logDTO, @PathVariable("id") Long id) {
+	public ResponseEntity<Void> update(@RequestBody @Valid LogDTO logDTO, @PathVariable("id") Long id) {
 
 		return logService.update(logDTO, id);
+
 	}
 
 }
