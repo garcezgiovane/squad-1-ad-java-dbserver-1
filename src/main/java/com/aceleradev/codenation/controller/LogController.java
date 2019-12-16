@@ -3,6 +3,8 @@ package com.aceleradev.codenation.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aceleradev.codenation.dto.LogDTO;
+import com.aceleradev.codenation.dto.NewLogDTO;
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.service.LogService;
 
@@ -53,9 +56,9 @@ public class LogController {
 
 	@ApiOperation(value = "Save a log")
 	@PostMapping
-	public ResponseEntity<Void> save(@RequestBody LogDTO logDTO) {
-
-		return logService.save(logDTO);
+	public ResponseEntity<Void> save(@RequestBody @Valid NewLogDTO newLogDTO) {
+		
+		return logService.save(newLogDTO);
 	}
 
 	@ApiOperation(value = "Delete a log by id")

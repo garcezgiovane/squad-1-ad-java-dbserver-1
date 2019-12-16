@@ -1,25 +1,24 @@
 package com.aceleradev.codenation.service;
 
-import com.aceleradev.codenation.dto.LogDTO;
-import com.aceleradev.codenation.entity.Log;
-import com.aceleradev.codenation.entity.enums.Environment;
-import com.aceleradev.codenation.entity.enums.Level;
-import com.aceleradev.codenation.repository.LogRepository;
-import com.aceleradev.codenation.service.exceptions.LogNotFoundException;
+import java.net.URI;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
+import com.aceleradev.codenation.dto.LogDTO;
+import com.aceleradev.codenation.dto.NewLogDTO;
+import com.aceleradev.codenation.entity.Log;
+import com.aceleradev.codenation.repository.LogRepository;
+import com.aceleradev.codenation.service.exceptions.LogNotFoundException;
 
 @Service
 public class LogService {
@@ -59,10 +58,10 @@ public class LogService {
 		return logRepository.findById(id);
 	}
 
-	public ResponseEntity<Void> save(LogDTO logDTO) {
+	public ResponseEntity<Void> save(NewLogDTO newLogDTO) {
 
 		Log log = new Log();		
-		BeanUtils.copyProperties(logDTO, log);
+		BeanUtils.copyProperties(newLogDTO, log);
 		logRepository.save(log);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(log.getId()).toUri();
 		return ResponseEntity.created(uri).build();
