@@ -12,8 +12,10 @@ import com.aceleradev.codenation.entity.enums.LogStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class LogDTO {
 

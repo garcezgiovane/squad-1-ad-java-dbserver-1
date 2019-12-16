@@ -3,7 +3,6 @@ package com.aceleradev.codenation.controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +21,6 @@ import com.aceleradev.codenation.dto.FindLogDTO;
 import com.aceleradev.codenation.dto.LogDTO;
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.service.LogService;
-import com.aceleradev.codenation.service.exceptions.UserAlreadyRegisteredException;
 
 @RestController
 @RequestMapping("api/v1/logs")
@@ -38,8 +36,8 @@ public class LogController {
 	@ApiOperation(value = "Returns a list of filtered logs")
 	@ResponseBody
 	@GetMapping(produces = "application/json")
-	public ResponseEntity<?> getLogs(FindLogDTO logDTO) {
-		return ResponseEntity.ok(logService.findLogs(logDTO));
+	public ResponseEntity<?> getLogs(FindLogDTO findLogDTO) {
+		return ResponseEntity.ok(logService.findLogs(findLogDTO));
 	}
 
 	@ApiOperation(value = "Returns a list of logs")
