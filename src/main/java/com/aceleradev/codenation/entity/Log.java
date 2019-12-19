@@ -9,12 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 import com.aceleradev.codenation.entity.enums.Environment;
 import com.aceleradev.codenation.entity.enums.Level;
 import com.aceleradev.codenation.entity.enums.LogStatus;
-
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -35,8 +32,8 @@ public class Log {
 	private String origin;
 	private LogStatus logStatus;
 	private Long frequency;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	public Log() {

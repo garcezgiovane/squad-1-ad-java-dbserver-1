@@ -2,6 +2,10 @@ package com.aceleradev.codenation.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.aceleradev.codenation.entity.Log;
 import com.aceleradev.codenation.entity.User;
 import com.aceleradev.codenation.entity.enums.Environment;
@@ -12,10 +16,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Data
-public class RequestLogDTO {
-	
+public class FindLogDTO {
+
 	private String title;
 	private String description;
 	private LocalDateTime eventDate;
@@ -24,11 +28,5 @@ public class RequestLogDTO {
 	private String origin;
 	private LogStatus logStatus;
 	private Long frequency;
-	private User user;
-
-	public Log convertToLog() {
-	    return new Log(null, title, description,eventDate,level,environment,origin,logStatus,frequency,user);
-		
-	}
-	
+	private String order;
 }
