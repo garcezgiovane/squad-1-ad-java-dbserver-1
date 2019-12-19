@@ -3,6 +3,7 @@ package com.aceleradev.codenation.dto;
 import java.util.List;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,6 +17,8 @@ import lombok.Data;
 @Data
 public class UserDTO {
 
+	@NotEmpty
+	@Size(min = 3, message = "Nome deve ter mais de 3 caracteres")
 	private String fullName;
 	@NotNull
 	@Email(message = "Formato de email valido obrigatorio.")

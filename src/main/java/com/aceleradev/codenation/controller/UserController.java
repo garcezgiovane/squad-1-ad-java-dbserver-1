@@ -45,7 +45,7 @@ public class UserController {
 
 	@ApiOperation(value = "Save a user")
 	@PostMapping
-	public ResponseEntity<Void> save(@Valid @RequestBody UserDTO userDTO) {
+	public ResponseEntity<Void> save(@RequestBody @Valid UserDTO userDTO){
 
 		return userService.save(userDTO);
 	}

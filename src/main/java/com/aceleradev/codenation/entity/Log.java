@@ -32,8 +32,8 @@ public class Log {
 	private String origin;
 	private LogStatus logStatus;
 	private Long frequency;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	public Log() {
